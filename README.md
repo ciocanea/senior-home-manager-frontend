@@ -1,1 +1,1 @@
-# senior-home-manager-frontend
+# SeniorHomeManager Frontend
