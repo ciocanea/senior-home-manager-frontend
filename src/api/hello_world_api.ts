@@ -20,3 +20,27 @@ export const fetchHelloWorld = async (): Promise<Result<HelloWorldResponse>> => 
     return { success: false, error: errorMsg };
   }
 };
+
+export const fetchHelloWorldRepository = async (): Promise<Result<HelloWorldResponse>> => {
+  try {
+    const response: AxiosResponse<string> = await helloWorldClient.get('/hello-world-repository');
+    return { success: true, data: { message: response.data } };
+  }
+  catch (error) {
+    console.error('Error fetching hello world message from repository:', error);
+    const errorMsg = getApiErrorMessage(error);
+    return { success: false, error: errorMsg };
+  }
+}
+
+export const createHelloWorld = async (message: string): Promise<Result<HelloWorldResponse>> => {
+  try {
+    const response: AxiosResponse<string> = await helloWorldClient.post('/create-hello-world', { message: message });
+    return { success: true, data: { message: response.data } };
+  }
+  catch (error) {
+    console.error('Error creating hello world message:', error);
+    const errorMsg = getApiErrorMessage(error);
+    return { success: false, error: errorMsg };
+  }
+}
