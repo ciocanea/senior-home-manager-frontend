@@ -1,4 +1,4 @@
 export interface HelloWorldResponse {
-    message: string;
-  }
+  message: string;
+}
   
