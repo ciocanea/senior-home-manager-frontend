@@ -1,5 +1,6 @@
 import styles from "./beneficiary_popup.module.css";
 import type { Beneficiary } from "../../../classes/beneficiary";
+import { DocumentRepository } from "../../../repositories/document_repository";
 
 function BeneficiaryPopup ({
     beneficiary,
@@ -8,6 +9,17 @@ function BeneficiaryPopup ({
     beneficiary: Beneficiary,
     onClose: () => void,
 }) {
+
+    const generateDocument = (templateName: String, beneficiary: Beneficiary) => {
+        DocumentRepository.generate(templateName, beneficiary).then((result) => {
+            if (result.success) {
+                console.log("Document generated.")
+            }
+            else {
+                console.log("Failed to generate document.")
+            }
+        })
+    }
     return (
         <>
             <div className={styles.overlay}>
@@ -19,6 +31,7 @@ function BeneficiaryPopup ({
                     <p>{beneficiary.serieCi}</p>
                     <p>{beneficiary.numarCi}</p>
                     <button type="button" onClick={onClose}>Cancel</button>
+                    <button type="button" onClick={() => generateDocument("testDocument.docx", beneficiary)}>Descarcă</button>
                 </div>
             </div>
         </>
