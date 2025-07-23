@@ -1,7 +1,9 @@
 import axios, { type AxiosResponse } from 'axios';
+
 import type { Result } from '../utils/result';
+import type { HelloWorldResponse } from '../utils/responses/hello_world_response';
+
 import { getApiErrorMessage } from '../utils/errorHandler';
-import type { HelloWorldResponse } from '../utils/hello_world_response';
 
 const helloWorldClient = axios.create({
   baseURL: 'http://localhost:8080/hello-world',

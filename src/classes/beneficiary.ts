@@ -1,4 +1,4 @@
-import type { BeneficiaryResponse } from "../utils/beneficiary_response";
+import type { BeneficiaryResponse } from "../utils/responses/beneficiary_response";
 
 export class Beneficiary {
     public id?: string;

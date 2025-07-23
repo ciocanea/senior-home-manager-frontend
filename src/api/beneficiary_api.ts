@@ -1,7 +1,9 @@
 import axios, { type AxiosResponse } from "axios";
-import type { BeneficiaryResponse } from "../utils/beneficiary_response";
+
+import type { BeneficiaryResponse } from "../utils/responses/beneficiary_response";
 import type { Result } from "../utils/result";
 import type { Beneficiary } from "../classes/beneficiary";
+
 import { getApiErrorMessage } from "../utils/errorHandler";
 
 const beneficiaryClient = axios.create({
@@ -14,7 +16,6 @@ const beneficiaryClient = axios.create({
 export const getAll = async (): Promise<Result<BeneficiaryResponse[]>> => {
     try {
         const response: AxiosResponse<BeneficiaryResponse[]> = await beneficiaryClient.get('');
-        console.log(response);
         return { success: true, data: response.data }
     }
     catch (error) {
