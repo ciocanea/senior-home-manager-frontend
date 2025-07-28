@@ -1,8 +1,48 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import styles from "./new_beneficiary_popup.module.css";
 import { Beneficiary } from "../../../classes/beneficiary";
 import { BeneficiaryRepository } from "../../../repositories/beneficiary_repository";
 import { Guardian } from "../../../classes/guardian";
+import newBeneficiaryReducer from "../../../reducers/new_beneficiary_reducer";
+
+const initialState = {
+    beneficiary: {
+        nume: '',
+        prenume: '',
+        dataNasterii: '',
+        cnp: '',
+        serieCi: '',
+        numarCi: '',
+        oras: '',
+        judet: '',
+        strada: '',
+        numarAdresa: '',
+        bloc: '',
+        scara: '',
+        etaj: '',
+        apartament: '',
+        dataEliberareCi: '',
+        sectie: '',
+    },
+    guardian: {
+        nume: '',
+        prenume: '',
+        dataNasterii: '',
+        cnp: '',
+        serieCi: '',
+        numarCi: '',
+        oras: '',
+        judet: '',
+        strada: '',
+        numarAdresa: '',
+        bloc: '',
+        scara: '',
+        etaj: '',
+        apartament: '',
+        dataEliberareCi: '',
+        sectie: '',
+    }
+};
 
 function NewBeneficiaryPopup ({
     onClose,
@@ -11,72 +51,52 @@ function NewBeneficiaryPopup ({
     onClose: () => void,
     onSubmitBeneficiary: (message: string, beneficiary?: Beneficiary) => void
 }) {
-    const [nume, setNume] = useState('');
-    const [prenume, setPrenume] = useState('');
-
-    const [cnp, setCnp] = useState('');
-    const [serieCi, setSerieCi] = useState('');
-    const [numarCi, setNumarCi] = useState('');
-
-    const [oras, setOras] = useState('');
-    const [judet, setJudet] = useState('');
-
-    const [strada, setStrada] = useState('');
-    const [numarAdresa, setNumarAdresa] = useState('');
-
-    const [dataEliberareCi, setDataEliberareCi] = useState('');
-    const [sectie, setSectie] = useState('');
-
-
-    const [numeGuardian, setNumeGuardian] = useState('');
-    const [prenumeGuardian, setPrenumeGuardian] = useState('');
-
-    const [cnpGuardian, setCnpGuardian] = useState('');
-    const [serieCiGuardian, setSerieCiGuardian] = useState('');
-    const [numarCiGuardian, setNumarCiGuardian] = useState('');
-
-    const [orasGuardian, setOrasGuardian] = useState('');
-    const [judetGuardian, setJudetGuardian] = useState('');
-
-    const [stradaGuardian, setStradaGuardian] = useState('');
-    const [numarAdresaGuardian, setNumarAdresaGuardian] = useState('');
-
-    const [dataEliberareCiGuardian, setDataEliberareCiGuardian] = useState('');
-    const [sectieGuardian, setSectieGuardian] = useState('');
+    const [state, dispatch] = useReducer(newBeneficiaryReducer, initialState);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const guardian = new Guardian(
             undefined,
-            numeGuardian,
-            prenumeGuardian,
-            cnpGuardian,
-            serieCiGuardian,
-            numarCiGuardian,
-            orasGuardian,
-            judetGuardian,
-            stradaGuardian,
-            numarAdresaGuardian,
-            dataEliberareCiGuardian,
-            sectieGuardian
-        );
-
-        const beneficiary = new Beneficiary(
+            state.guardian.nume,
+            state.guardian.prenume,
+            state.guardian.dataNasterii,
+            state.guardian.cnp,
+            state.guardian.serieCi,
+            state.guardian.numarCi,
+            state.guardian.oras,
+            state.guardian.judet,
+            state.guardian.strada,
+            state.guardian.numarAdresa,
+            state.guardian.bloc,
+            state.guardian.scara,
+            state.guardian.etaj,
+            state.guardian.apartament,
+            state.guardian.dataEliberareCi,
+            state.guardian.sectie
+          );
+          
+          const beneficiary = new Beneficiary(
             undefined,
-            nume,
-            prenume,
-            cnp,
-            serieCi,
-            numarCi,
-            oras,
-            judet,
-            strada,
-            numarAdresa,
-            dataEliberareCi,
-            sectie,
-            guardian,
-        );
+            state.beneficiary.nume,
+            state.beneficiary.prenume,
+            state.beneficiary.dataNasterii,
+            state.beneficiary.cnp,
+            state.beneficiary.serieCi,
+            state.beneficiary.numarCi,
+            state.beneficiary.oras,
+            state.beneficiary.judet,
+            state.beneficiary.strada,
+            state.beneficiary.numarAdresa,
+            state.beneficiary.bloc,
+            state.beneficiary.scara,
+            state.beneficiary.etaj,
+            state.beneficiary.apartament,
+            state.beneficiary.dataEliberareCi,
+            state.beneficiary.sectie,
+            guardian
+          );
+          
 
         const result = await BeneficiaryRepository.add(beneficiary);
 
@@ -102,8 +122,8 @@ function NewBeneficiaryPopup ({
                                     <label>Nume</label>
                                     <input 
                                     type="text"
-                                    value={nume}
-                                    onChange={(e) => {setNume(e.target.value)}} 
+                                    value={state.beneficiary.nume}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'nume', value: e.target.value })}} 
                                     placeholder="e.g. Popescu"
                                     />
                                 </div>
@@ -111,8 +131,8 @@ function NewBeneficiaryPopup ({
                                     <label>Prenume</label>
                                     <input
                                     type="text"
-                                    value={prenume}
-                                    onChange={(e) => {setPrenume(e.target.value)}}
+                                    value={state.beneficiary.prenume}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'prenume', value: e.target.value })}}
                                     placeholder="e.g. Maria"
                                     />
                                 </div>
@@ -120,8 +140,8 @@ function NewBeneficiaryPopup ({
                                     <label>CNP</label>
                                     <input 
                                     type="text"
-                                    value={cnp}
-                                    onChange={(e) => {setCnp(e.target.value.replace(/\D/g, ''))}}
+                                    value={state.beneficiary.cnp}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'cnp', value: e.target.value.replace(/\D/g, '') })}}
                                     minLength={13}
                                     maxLength={13}
                                     pattern="[0-9]*"
@@ -132,8 +152,8 @@ function NewBeneficiaryPopup ({
                                     <label>Serie</label>
                                     <input 
                                     type="text"
-                                    value={serieCi}
-                                    onChange={(e) => {setSerieCi(e.target.value.replace(/[^A-Z]/gi, '').toUpperCase())}}
+                                    value={state.beneficiary.serieCi}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'serieCi', value: e.target.value.replace(/[^A-Z]/gi, '').toUpperCase() })}}
                                     minLength={2}
                                     maxLength={2}
                                     placeholder="e.g. RK"
@@ -143,8 +163,8 @@ function NewBeneficiaryPopup ({
                                     <label>Număr</label>
                                     <input 
                                     type="text"
-                                    value={numarCi}
-                                    onChange={(e) => {setNumarCi(e.target.value.replace(/\D/g, ''))}}
+                                    value={state.beneficiary.numarCi}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'numarCi', value: e.target.value.replace(/\D/g, '') })}}
                                     minLength={6}
                                     maxLength={6}
                                     placeholder="e.g. 939120"
@@ -154,16 +174,16 @@ function NewBeneficiaryPopup ({
                                     <label>Dată Eliberare</label>
                                     <input 
                                     type="date"
-                                    value={dataEliberareCi}
-                                    onChange={(e) => {setDataEliberareCi(e.target.value)}}
+                                    value={state.beneficiary.dataEliberareCi}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'dataEliberareCi', value: e.target.value })}}
                                     />
                                 </div>
                                 <div>
                                     <label>Secție</label>
                                     <input 
                                     type="text"
-                                    value={sectie}
-                                    onChange={(e) => {setSectie(e.target.value)}}
+                                    value={state.beneficiary.sectie}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'sectie', value: e.target.value })}}
                                     placeholder="e.g. S.P.C.E.P Sector 1"
                                     />
                                 </div>
@@ -171,8 +191,8 @@ function NewBeneficiaryPopup ({
                                     <label>Oraș</label>
                                     <input 
                                     type="text"
-                                    value={oras}
-                                    onChange={(e) => {setOras(e.target.value)}}
+                                    value={state.beneficiary.oras}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'oras', value: e.target.value })}}
                                     placeholder="e.g. București"
                                     />
                                 </div>
@@ -180,8 +200,8 @@ function NewBeneficiaryPopup ({
                                     <label>Județ/Sector</label>
                                     <input 
                                     type="text"
-                                    value={judet}
-                                    onChange={(e) => {setJudet(e.target.value)}}
+                                    value={state.beneficiary.judet}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'judet', value: e.target.value })}}
                                     placeholder="e.g. Sector 3"
                                     />
                                 </div>
@@ -189,8 +209,8 @@ function NewBeneficiaryPopup ({
                                     <label>Stradă</label>
                                     <input 
                                     type="text"
-                                    value={strada}
-                                    onChange={(e) => {setStrada(e.target.value)}}
+                                    value={state.beneficiary.strada}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'strada', value: e.target.value })}}
                                     placeholder="e.g. Gării"
                                     />
                                 </div>
@@ -198,21 +218,66 @@ function NewBeneficiaryPopup ({
                                     <label>Număr</label>
                                     <input 
                                     type="text"
-                                    value={numarAdresa}
-                                    onChange={(e) => {setNumarAdresa(e.target.value)}}
+                                    value={state.beneficiary.numarAdresa}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'numarAdresa', value: e.target.value })}}
                                     placeholder="e.g. 39"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Data Nașterii</label>
+                                    <input 
+                                    type="date"
+                                    value={state.beneficiary.dataNasterii}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'dataNasterii', value: e.target.value })}}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Bloc</label>
+                                    <input 
+                                    type="text"
+                                    value={state.beneficiary.bloc}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'bloc', value: e.target.value })}}
+                                    placeholder="e.g. 1"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Scară</label>
+                                    <input 
+                                    type="text"
+                                    value={state.beneficiary.scara}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'scara', value: e.target.value })}}
+                                    placeholder="e.g. 2"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Etaj</label>
+                                    <input 
+                                    type="number"
+                                    value={state.beneficiary.etaj}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'etaj', value: e.target.value })}}
+                                    min={1}
+                                    placeholder="e.g. 3"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Apartament</label>
+                                    <input 
+                                    type="text"
+                                    value={state.beneficiary.apartament}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'apartament', value: e.target.value })}}
+                                    placeholder="e.g. 4"
                                     />
                                 </div>
                             </div>
 
                             <div className={styles.form_section}>
-                                <h3>Aparținător</h3>
+                                <h3>Beneficiar</h3>
                                 <div>
                                     <label>Nume</label>
                                     <input 
                                     type="text"
-                                    value={numeGuardian}
-                                    onChange={(e) => {setNumeGuardian(e.target.value)}} 
+                                    value={state.guardian.nume}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'nume', value: e.target.value })}} 
                                     placeholder="e.g. Popescu"
                                     />
                                 </div>
@@ -220,8 +285,8 @@ function NewBeneficiaryPopup ({
                                     <label>Prenume</label>
                                     <input
                                     type="text"
-                                    value={prenumeGuardian}
-                                    onChange={(e) => {setPrenumeGuardian(e.target.value)}}
+                                    value={state.guardian.prenume}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'prenume', value: e.target.value })}}
                                     placeholder="e.g. Maria"
                                     />
                                 </div>
@@ -229,8 +294,8 @@ function NewBeneficiaryPopup ({
                                     <label>CNP</label>
                                     <input 
                                     type="text"
-                                    value={cnpGuardian}
-                                    onChange={(e) => {setCnpGuardian(e.target.value.replace(/\D/g, ''))}}
+                                    value={state.guardian.cnp}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'cnp', value: e.target.value.replace(/\D/g, '') })}}
                                     minLength={13}
                                     maxLength={13}
                                     pattern="[0-9]*"
@@ -241,8 +306,8 @@ function NewBeneficiaryPopup ({
                                     <label>Serie</label>
                                     <input 
                                     type="text"
-                                    value={serieCiGuardian}
-                                    onChange={(e) => {setSerieCiGuardian(e.target.value.replace(/[^A-Z]/gi, '').toUpperCase())}}
+                                    value={state.guardian.serieCi}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'serieCi', value: e.target.value.replace(/[^A-Z]/gi, '').toUpperCase() })}}
                                     minLength={2}
                                     maxLength={2}
                                     placeholder="e.g. RK"
@@ -252,8 +317,8 @@ function NewBeneficiaryPopup ({
                                     <label>Număr</label>
                                     <input 
                                     type="text"
-                                    value={numarCiGuardian}
-                                    onChange={(e) => {setNumarCiGuardian(e.target.value.replace(/\D/g, ''))}}
+                                    value={state.guardian.numarCi}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'numarCi', value: e.target.value.replace(/\D/g, '') })}}
                                     minLength={6}
                                     maxLength={6}
                                     placeholder="e.g. 939120"
@@ -263,16 +328,16 @@ function NewBeneficiaryPopup ({
                                     <label>Dată Eliberare</label>
                                     <input 
                                     type="date"
-                                    value={dataEliberareCiGuardian}
-                                    onChange={(e) => {setDataEliberareCiGuardian(e.target.value)}}
+                                    value={state.guardian.dataEliberareCi}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'dataEliberareCi', value: e.target.value })}}
                                     />
                                 </div>
                                 <div>
                                     <label>Secție</label>
                                     <input 
                                     type="text"
-                                    value={sectieGuardian}
-                                    onChange={(e) => {setSectieGuardian(e.target.value)}}
+                                    value={state.guardian.sectie}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'sectie', value: e.target.value })}}
                                     placeholder="e.g. S.P.C.E.P Sector 1"
                                     />
                                 </div>
@@ -280,8 +345,8 @@ function NewBeneficiaryPopup ({
                                     <label>Oraș</label>
                                     <input 
                                     type="text"
-                                    value={orasGuardian}
-                                    onChange={(e) => {setOrasGuardian(e.target.value)}}
+                                    value={state.guardian.oras}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'oras', value: e.target.value })}}
                                     placeholder="e.g. București"
                                     />
                                 </div>
@@ -289,8 +354,8 @@ function NewBeneficiaryPopup ({
                                     <label>Județ/Sector</label>
                                     <input 
                                     type="text"
-                                    value={judetGuardian}
-                                    onChange={(e) => {setJudetGuardian(e.target.value)}}
+                                    value={state.guardian.judet}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'judet', value: e.target.value })}}
                                     placeholder="e.g. Sector 3"
                                     />
                                 </div>
@@ -298,8 +363,8 @@ function NewBeneficiaryPopup ({
                                     <label>Stradă</label>
                                     <input 
                                     type="text"
-                                    value={stradaGuardian}
-                                    onChange={(e) => {setStradaGuardian(e.target.value)}}
+                                    value={state.guardian.strada}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'strada', value: e.target.value })}}
                                     placeholder="e.g. Gării"
                                     />
                                 </div>
@@ -307,9 +372,54 @@ function NewBeneficiaryPopup ({
                                     <label>Număr</label>
                                     <input 
                                     type="text"
-                                    value={numarAdresaGuardian}
-                                    onChange={(e) => {setNumarAdresaGuardian(e.target.value)}}
+                                    value={state.guardian.numarAdresa}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'numarAdresa', value: e.target.value })}}
                                     placeholder="e.g. 39"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Data Nașterii</label>
+                                    <input 
+                                    type="date"
+                                    value={state.guardian.dataNasterii}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'dataNasterii', value: e.target.value })}}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Bloc</label>
+                                    <input 
+                                    type="text"
+                                    value={state.guardian.bloc}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'bloc', value: e.target.value })}}
+                                    placeholder="e.g. 1"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Scară</label>
+                                    <input 
+                                    type="text"
+                                    value={state.guardian.scara}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'scara', value: e.target.value })}}
+                                    placeholder="e.g. 2"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Etaj</label>
+                                    <input 
+                                    type="number"
+                                    value={state.guardian.etaj}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'etaj', value: e.target.value })}}
+                                    min={1}
+                                    placeholder="e.g. 3"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Apartament</label>
+                                    <input 
+                                    type="text"
+                                    value={state.guardian.apartament}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'apartament', value: e.target.value })}}
+                                    placeholder="e.g. 4"
                                     />
                                 </div>
                             </div>

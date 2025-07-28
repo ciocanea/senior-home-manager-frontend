@@ -46,6 +46,12 @@ function BeneficiaryPopup ({
                             </div>
                             <div>
                                 <label>
+                                    Data Nașterii:
+                                </label>
+                                <div>{beneficiary.dataNasterii}</div>
+                            </div>
+                            <div>
+                                <label>
                                     CNP:
                                 </label>
                                 <div>{beneficiary.cnp}</div>
@@ -98,6 +104,30 @@ function BeneficiaryPopup ({
                                 </label>
                                 <div>{beneficiary.numarAdresa}</div>
                             </div>
+                            <div>
+                                <label>
+                                    Bloc:
+                                </label>
+                                <div>{beneficiary.bloc}</div>
+                            </div>
+                            <div>
+                                <label>
+                                    Scară:
+                                </label>
+                                <div>{beneficiary.scara}</div>
+                            </div>
+                            <div>
+                                <label>
+                                    Etaj:
+                                </label>
+                                <div>{beneficiary.etaj}</div>
+                            </div>
+                            <div>
+                                <label>
+                                    Apartament:
+                                </label>
+                                <div>{beneficiary.apartament}</div>
+                            </div>
                         </div>
 
                         <div className={styles.info_item}>
@@ -113,6 +143,12 @@ function BeneficiaryPopup ({
                                     Prenume:
                                 </label>
                                 <div>{beneficiary.guardian.prenume}</div>
+                            </div>
+                            <div>
+                                <label>
+                                    Data Nașterii:
+                                </label>
+                                <div>{beneficiary.guardian.dataNasterii}</div>
                             </div>
                             <div>
                                 <label>
@@ -167,6 +203,30 @@ function BeneficiaryPopup ({
                                     Număr:
                                 </label>
                                 <div>{beneficiary.guardian.numarAdresa}</div>
+                            </div>
+                            <div>
+                                <label>
+                                    Bloc:
+                                </label>
+                                <div>{beneficiary.guardian.bloc}</div>
+                            </div>
+                            <div>
+                                <label>
+                                    Scară:
+                                </label>
+                                <div>{beneficiary.guardian.scara}</div>
+                            </div>
+                            <div>
+                                <label>
+                                    Etaj:
+                                </label>
+                                <div>{beneficiary.guardian.etaj}</div>
+                            </div>
+                            <div>
+                                <label>
+                                    Apartament:
+                                </label>
+                                <div>{beneficiary.guardian.apartament}</div>
                             </div>
                         </div>
 
