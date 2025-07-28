@@ -5,6 +5,7 @@ export interface BeneficiaryResponse {
     
     nume: string;
     prenume: string;
+    dataNasterii: string;
 
     cnp: string;
     serieCi: string;
@@ -15,6 +16,10 @@ export interface BeneficiaryResponse {
 
     strada: string;
     numarAdresa: string;
+    bloc: string;
+    scara: string;
+    etaj: string;
+    apartament: string;
 
     dataEliberareCi: string;
     sectie: string;
