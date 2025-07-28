@@ -14,7 +14,6 @@ const documentClient = axios.create({
 
 export const generate = async (documentRequestDTO: DocumentRequestDTO): Promise<Result<Blob>> => {
     try {
-        console.log(documentRequestDTO.templateName);
         const response: AxiosResponse<Blob> = await documentClient.post(
             'generate', 
             documentRequestDTO,

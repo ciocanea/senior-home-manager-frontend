@@ -1,7 +1,4 @@
-import type { BeneficiaryResponse } from "../utils/responses/beneficiary_response";
-import type { Guardian } from "./guardian";
-
-export class Beneficiary {
+export class Guardian {
     public id?: string;
     public nume: string;
     public prenume: string;
@@ -14,9 +11,8 @@ export class Beneficiary {
     public numarAdresa: string;
     public dataEliberareCi: string;
     public sectie: string;
-    public guardian: Guardian;
   
-    constructor (
+    constructor(
       id: string | undefined = undefined,
       nume: string,
       prenume: string,
@@ -29,7 +25,6 @@ export class Beneficiary {
       numarAdresa: string,
       dataEliberareCi: string,
       sectie: string,
-      guardian: Guardian,
     ) {
       this.id = id;
       this.nume = nume;
@@ -43,24 +38,22 @@ export class Beneficiary {
       this.numarAdresa = numarAdresa;
       this.dataEliberareCi = dataEliberareCi;
       this.sectie = sectie;
-      this.guardian = guardian;
     }
-
-    static fromResponse (res: BeneficiaryResponse): Beneficiary {
-      return new Beneficiary(
-        res.id,
-        res.nume, 
-        res.prenume, 
-        res.cnp, 
-        res.serieCi, 
-        res.numarCi, 
+  
+    static fromResponse(res: any): Guardian {
+      return new Guardian(
+        res.nume,
+        res.prenume,
+        res.cnp,
+        res.serieCi,
+        res.numarCi,
         res.oras,
         res.judet,
         res.strada,
         res.numarAdresa,
         res.dataEliberareCi,
         res.sectie,
-        res.guardian
+        res.id
       );
     }
-}
+  }

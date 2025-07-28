@@ -4,10 +4,10 @@ import type { DocumentRequestDTO } from "../utils/dtos/documentRequestDTO";
 import type { Result } from "../utils/result";
 
 export const DocumentRepository = {
-    async generate (templateName: String, beneficiary: Beneficiary): Promise<Result<void>> {
+    async generate (templateName: string, beneficiary: Beneficiary): Promise<Result<void>> {
         const documentRequestDTO: DocumentRequestDTO = { 
             templateName: templateName, 
-            beneficiary: beneficiary 
+            beneficiaryId: beneficiary.id! 
         }
 
         const result = await generate(documentRequestDTO);
@@ -17,7 +17,9 @@ export const DocumentRepository = {
             const documentUrl = URL.createObjectURL(dataBlob);
             const a = document.createElement("a");
             a.href = documentUrl;
-            a.download = `${templateName}_${beneficiary.nume.toLocaleUpperCase()}.docx`;
+            a.download = 
+                `${templateName.split('.')[0]}_${beneficiary.nume.toLocaleUpperCase()}_${beneficiary.prenume.split(' ')[0].toLocaleUpperCase()}.docx`;
+                
             a.click();
             return { success: true, data: undefined }
         }
