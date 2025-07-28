@@ -20,7 +20,12 @@ function BeneficiaryList ({
                          className={styles.item}
                          onClick={() => setSelectedBeneficiary(b)}
                         >
-                            {b.nume}
+                            <div>
+                                Beneficiar: {(b.nume === '' && b.prenume === '') ? 'Beneficiar fără nume' : `${b.nume} ${b.prenume}`}
+                            </div>
+                            <div>
+                                Aparținător: {(b.guardian.nume === '' && b.guardian.prenume === '') ? 'Aparținător fără nume' : `${b.guardian.nume} ${b.guardian.prenume}`}
+                            </div>
                         </div>
             
                         {selectedBeneficiary && 

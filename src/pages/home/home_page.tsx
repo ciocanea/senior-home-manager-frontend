@@ -37,7 +37,7 @@ function HomePage () {
 
     return (
         <>
-            <button onClick={() => setShowPopup(true)}>Beneficiar Nou</button>
+            <button onClick={() => setShowPopup(true)}>Adăugați Beneficiar Nou</button>
             {
                 showPopup && 
                 <NewBeneficiaryPopup 
