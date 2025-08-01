@@ -7,9 +7,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 function BeneficiaryPopup ({
     beneficiary,
+    documents,
     onClose,
 }: {
     beneficiary: Beneficiary,
+    documents: string[],
     onClose: () => void,
 }) {
 
@@ -233,71 +235,23 @@ function BeneficiaryPopup ({
                     </div>
 
                     <div className={styles.documents}>
-                        <div className={styles.documents_item}>
-                            <div>
-                                contract_{beneficiary.nume.toLocaleUpperCase()}_{beneficiary.prenume.split(' ')[0].toLocaleUpperCase()}.docx
-                            </div>
-                            
-                            <button onClick={() => generateDocument("contract.docx", beneficiary)}>
-                                <DownloadIcon></DownloadIcon>
-                            </button>
-                            <button>
-                                <VisibilityIcon></VisibilityIcon>
-                            </button>
-                        </div>
 
-                        <div className={styles.documents_item}>
-                            <div>
-                                decizie_admitere_{beneficiary.nume.toLocaleUpperCase()}_{beneficiary.prenume.split(' ')[0].toLocaleUpperCase()}.docx
-                            </div>
-
-                            <button onClick={() => generateDocument("decizie_admitere.docx", beneficiary)}>
-                                <DownloadIcon></DownloadIcon>
-                            </button>
-                            <button>
-                                <VisibilityIcon></VisibilityIcon>
-                            </button>
-                        </div>
-
-                        <div className={styles.documents_item}>
-                            <div>
-                                act_aditional_contract_{beneficiary.nume.toLocaleUpperCase()}_{beneficiary.prenume.split(' ')[0].toLocaleUpperCase()}.docx
-                            </div>
-
-                            <button onClick={() => generateDocument("act_aditional_contract.docx", beneficiary)}>
-                                <DownloadIcon></DownloadIcon>
-                            </button>
-                            <button>
-                                <VisibilityIcon></VisibilityIcon>
-                            </button>
-                        </div>
-
-                        <div className={styles.documents_item}>
-                            <div>
-                                angajament_de_plata_{beneficiary.nume.toLocaleUpperCase()}_{beneficiary.prenume.split(' ')[0].toLocaleUpperCase()}.docx
-                            </div>
-
-                            <button onClick={() => generateDocument("angajament_de_plata.docx", beneficiary)}>
-                                <DownloadIcon></DownloadIcon>
-                            </button>
-                            <button>
-                                <VisibilityIcon></VisibilityIcon>
-                            </button>
-                        </div>
-
-                        <div className={styles.documents_item}>
-                            <div>
-                                cerere_admitere_{beneficiary.nume.toLocaleUpperCase()}_{beneficiary.prenume.split(' ')[0].toLocaleUpperCase()}.docx
-                            </div>
-
-                            <button onClick={() => generateDocument("cerere_admitere.docx", beneficiary)}>
-                                <DownloadIcon></DownloadIcon>
-                            </button>
-                            <button>
-                                <VisibilityIcon></VisibilityIcon>
-                            </button>
-                        </div>
-
+                        {
+                            documents.map((document, index) => (
+                                <div key={index} className={styles.documents_item}>
+                                    <div>
+                                        {document.split('.')[0]}_{beneficiary.nume.toLocaleUpperCase()}_{beneficiary.prenume.split(' ')[0].toLocaleUpperCase()}.docx
+                                    </div>
+                                    
+                                    <button onClick={() => generateDocument(document, beneficiary)}>
+                                        <DownloadIcon></DownloadIcon>
+                                    </button>
+                                    <button>
+                                        <VisibilityIcon></VisibilityIcon>
+                                    </button>
+                                </div>
+                            ))
+                        }
                     </div>
                     
                     <div className={styles.buttons}>
