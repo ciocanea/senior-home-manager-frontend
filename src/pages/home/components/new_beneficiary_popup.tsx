@@ -49,7 +49,7 @@ function NewBeneficiaryPopup ({
     onSubmitBeneficiary
 }: {
     onClose: () => void,
-    onSubmitBeneficiary: (message: string, beneficiary?: Beneficiary) => void
+    onSubmitBeneficiary: (beneficiary?: Beneficiary) => void
 }) {
     const [state, dispatch] = useReducer(newBeneficiaryReducer, initialState);
 
@@ -101,12 +101,9 @@ function NewBeneficiaryPopup ({
         const result = await BeneficiaryRepository.add(beneficiary);
 
         if (result.success) {
-            onSubmitBeneficiary('Beneficiar adăugat.', result.data);
+            onSubmitBeneficiary(result.data);
             onClose();
         } 
-        else {
-            onSubmitBeneficiary('S-a produs o eroare. Vă rugăm să încercați mai târziu.');
-        }
     }
 
     return (
