@@ -1,4 +1,4 @@
-import { generate } from "../api/document_api";
+import { generate, getNames, upload, deleteDocument } from "../api/document_api";
 import type { Beneficiary } from "../classes/beneficiary";
 import type { DocumentRequestDTO } from "../utils/dtos/documentRequestDTO";
 import type { Result } from "../utils/result";
@@ -26,5 +26,17 @@ export const DocumentRepository = {
         else {
             return { success: false, error: result.error }
         }
+    },
+
+    async upload (newDocument: File): Promise<Result<void>> {
+        return await upload(newDocument);
+    },
+
+    async deleteDocument (documentName: string): Promise<Result<void>> {
+        return await deleteDocument(documentName);
+    },
+
+    async getNames (): Promise<Result<string[]>> {
+        return await getNames();
     }
 }
