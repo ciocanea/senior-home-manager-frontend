@@ -6,8 +6,10 @@ import BeneficiaryPopup from "./beneficiary_popup";
 
 function BeneficiaryList ({
     beneficiaries,
+    documents,
 }: {
-    beneficiaries: Beneficiary[]
+    beneficiaries: Beneficiary[],
+    documents: string[]
 }) {
     const [selectedBeneficiary, setSelectedBeneficiary] = useState<Beneficiary | null>(null);
 
@@ -31,6 +33,7 @@ function BeneficiaryList ({
                         {selectedBeneficiary && 
                             <BeneficiaryPopup
                              beneficiary={selectedBeneficiary}
+                             documents={documents}
                              onClose={() => setSelectedBeneficiary(null)}
                             />
                         }
