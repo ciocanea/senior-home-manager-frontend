@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import styles from "./new_beneficiary_popup.module.css";
+import styles from "../components_css/new_beneficiary_popup.module.css";
 import { Beneficiary } from "../../../classes/beneficiary";
 import { BeneficiaryRepository } from "../../../repositories/beneficiary_repository";
 import { Guardian } from "../../../classes/guardian";

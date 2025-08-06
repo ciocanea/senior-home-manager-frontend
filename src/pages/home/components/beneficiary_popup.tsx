@@ -1,4 +1,4 @@
-import styles from "./beneficiary_popup.module.css";
+import styles from "../components_css/beneficiary_popup.module.css";
 import type { Beneficiary } from "../../../classes/beneficiary";
 import { DocumentRepository } from "../../../repositories/document_repository";
 import DownloadIcon from '@mui/icons-material/Download';
@@ -15,8 +15,8 @@ function BeneficiaryPopup ({
     onClose: () => void,
 }) {
 
-    const generateDocument = (templateName: string, beneficiary: Beneficiary) => {
-        DocumentRepository.generate(templateName, beneficiary).then((result) => {
+    const generateDocument = (documentName: string, beneficiary: Beneficiary) => {
+        DocumentRepository.generate(documentName, beneficiary).then((result) => {
             if (result.success) {
                 console.log("Document generated.")
             }
