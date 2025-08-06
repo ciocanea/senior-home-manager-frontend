@@ -1,0 +1,33 @@
+.item {
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-color);
+
+    min-width: 300px;
+    max-width: 90%;
+
+    padding: 10px;
+    margin: 10px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item div {
+    white-space: normal;
+    word-break: break-word;
+    width: 70%;
+}
+
+.item button {
+    border: none;
+    background-color: var(--secondary-color);
+
+    padding: 10px;
+
+    min-width: fit-content;
+    width: fit-content;
+}

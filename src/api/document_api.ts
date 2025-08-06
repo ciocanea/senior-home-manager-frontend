@@ -28,6 +28,22 @@ export const generate = async (documentRequestDTO: DocumentRequestDTO): Promise<
     }
 }
 
+export const edit = async (documentName: string, placeholders: string[]): Promise<Result<void>> => {
+    try {
+        await documentClient.put(
+            `edit/${documentName}`,
+            placeholders
+        )
+
+        return { success: true, data: undefined }
+    }
+    catch (error) {
+        console.error('Error editing document:', error);
+        const errorMsg = getApiErrorMessage(error);
+        return { success: false, error: errorMsg };
+    }
+}
+
 export const upload = async (newDocument: File): Promise<Result<void>> => {
     try {
         const formData = new FormData();
@@ -69,11 +85,25 @@ export const deleteDocument = async (documentName: string): Promise<Result<void>
     }
 }
 
+export const get = async (documentName: string): Promise<Result<Blob>> => {
+    try {
+        const response: AxiosResponse<Blob> = await documentClient.get(
+            documentName, 
+            { responseType: 'blob' }
+        );
+        return { success: true, data: response.data };
+    } 
+    catch (error) {
+        console.error('Failed to get document:', error);
+        const errorMsg = getApiErrorMessage(error);
+        return { success: false, error: errorMsg };
+    }
+}
+
 
 export const getNames = async (): Promise<Result<string[]>> => {
     try {
         const response: AxiosResponse<string[]> = await documentClient.get('getNames');
-        console.log(response.data);
         return { success: true, data: response.data }
     }
     catch (error) {

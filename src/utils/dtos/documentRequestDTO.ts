@@ -1,4 +1,4 @@
 export interface DocumentRequestDTO {
-    templateName: string,
+    documentName: string,
     beneficiaryId: string
 }
