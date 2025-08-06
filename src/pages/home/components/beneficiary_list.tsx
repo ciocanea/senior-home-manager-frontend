@@ -1,4 +1,4 @@
-import styles from "./beneficiary_list.module.css";
+import styles from "../components_css/beneficiary_list.module.css";
 
 import type { Beneficiary } from "../../../classes/beneficiary";
 import { useState } from "react";
@@ -30,17 +30,19 @@ function BeneficiaryList ({
                             </div>
                         </div>
             
-                        {selectedBeneficiary && 
-                            <BeneficiaryPopup
-                             beneficiary={selectedBeneficiary}
-                             documents={documents}
-                             onClose={() => setSelectedBeneficiary(null)}
-                            />
-                        }
                     </div>
                 ))
             }
 
+            <div>
+                {selectedBeneficiary && 
+                    <BeneficiaryPopup
+                    beneficiary={selectedBeneficiary}
+                    documents={documents}
+                    onClose={() => setSelectedBeneficiary(null)}
+                    />
+                }
+            </div>
             
         </>
     );
