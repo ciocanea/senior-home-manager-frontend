@@ -1,4 +1,9 @@
-import styles from './document_list.module.css'
+import styles from '../components_css/document_list.module.css'
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { useState } from 'react';
+import DocumentPopup from './document_popup';
 
 function DocumentList ({
     documents,
@@ -7,22 +12,36 @@ function DocumentList ({
     documents: string[],
     onDeleteDocument: (documentName: string) => void
 }) {
+    const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
+
     return (
         <>
             {
-                documents.map((document, index) => (
-                    <div key={index} className={styles.item}>
-                        <div>
-                            { document }
+                documents.map((documentName, index) => (
+                    <div key={index}>
+                        <div className={styles.item}>
+                            <div>
+                                { documentName }
+                            </div>
+                            <button onClick={() => setSelectedDocument(documentName)}>
+                                <ModeEditIcon></ModeEditIcon>
+                            </button>
+                            <button onClick={() => onDeleteDocument(documentName)}>
+                                <DeleteIcon></DeleteIcon>
+                            </button>
                         </div>
-                        <button onClick={() => onDeleteDocument(document)}>
-                            Delete
-                        </button>
                     </div>
                 ))
             }
 
-            
+            <div>
+                {selectedDocument && (
+                    <DocumentPopup
+                        documentName={selectedDocument}
+                        onClose={() => setSelectedDocument(null)}
+                    />
+                )}
+            </div>  
         </>
     );
 }
