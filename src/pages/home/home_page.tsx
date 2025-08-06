@@ -3,11 +3,13 @@ import styles from "./home_page.module.css";
 import NewBeneficiaryPopup from "./components/new_beneficiary_popup";
 import BeneficiaryList from "./components/beneficiary_list";
 
-import { Snackbar } from "@mui/material";
 import { BeneficiaryRepository } from "../../repositories/beneficiary_repository";
 import type { Beneficiary } from "../../classes/beneficiary";
 import { DocumentRepository } from "../../repositories/document_repository";
 import DocumentList from "./components/document_list";
+
+import { Snackbar } from "@mui/material";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 function HomePage () {
     const [showPopup, setShowPopup] = useState(false);
@@ -133,7 +135,7 @@ function HomePage () {
                     <div className={styles.document_upload}>
                         <form onSubmit={handleSubmitDocument}>
                             <label htmlFor="document_input" className={styles.document_input}>
-                                { newDocument?.name || 'Upload Document' }
+                                { newDocument?.name || 'Selectați un document' }
                             </label>
                             <input 
                             id="document_input" 
@@ -146,18 +148,16 @@ function HomePage () {
                             type="submit"
                             disabled={ newDocument === undefined }
                             >
-                                Submit
+                                <FileUploadIcon></FileUploadIcon>
                             </button>
                         </form>
                     </div>
-
 
                     <DocumentList
                     documents={documents}
                     onDeleteDocument={handleDeleteDocument}
                     >
                     </DocumentList>
-                    
                 </div>
             </div>
         </>
