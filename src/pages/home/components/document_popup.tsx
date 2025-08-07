@@ -39,7 +39,7 @@ function DocumentPopup ({
         <>
             <div className={styles.overlay}>
                 <div className={styles.popup}>
-                    <div
+                    <div className={styles.document}
                         dangerouslySetInnerHTML={{ __html: documentHtml }}
                     />
 
