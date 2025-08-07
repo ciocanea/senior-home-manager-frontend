@@ -5,6 +5,11 @@
 
   text-align: center;
   
+  --white: #ffffff;
+  --black: #000000;
+  --highlight: #fff59d;
+
+
   --background-color: #505050;
   --primary-color: #6d6d6d;
   --secondary-color: #adadad;

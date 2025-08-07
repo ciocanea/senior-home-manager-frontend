@@ -36,3 +36,18 @@ export const add = async (beneficiary: Beneficiary): Promise<Result<BeneficiaryR
         return { success: false, error: errorMsg };
     }
 }
+
+export const deleteBeneficiary = async (beneficiaryId: string): Promise<Result<void>> => {
+    try {
+        await beneficiaryClient.delete(
+            `/${beneficiaryId}`,
+        );
+
+        return { success: true, data: undefined };
+    }
+    catch (error) {
+        console.error('Failed to delete beneficiary:', error);
+        const errorMsg = getApiErrorMessage(error);
+        return { success: false, error: errorMsg };
+    }
+}

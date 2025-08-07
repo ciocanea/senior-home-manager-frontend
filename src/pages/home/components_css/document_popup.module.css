@@ -24,3 +24,15 @@
     max-height: 90vh;
     overflow-y: auto;
 }
+
+.document {
+    background-color: var(--white);
+}
+
+.document select {
+    border: 3px solid var(--highlight);
+}
+
+.document li {
+    text-align: left;
+}

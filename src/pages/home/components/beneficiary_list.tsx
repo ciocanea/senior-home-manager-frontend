@@ -2,14 +2,18 @@ import styles from "../components_css/beneficiary_list.module.css";
 
 import type { Beneficiary } from "../../../classes/beneficiary";
 import { useState } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 import BeneficiaryPopup from "./beneficiary_popup";
 
 function BeneficiaryList ({
     beneficiaries,
     documents,
+    onDeleteBeneficiary
 }: {
     beneficiaries: Beneficiary[],
-    documents: string[]
+    documents: string[],
+    onDeleteBeneficiary: (documentName: string) => void
+
 }) {
     const [selectedBeneficiary, setSelectedBeneficiary] = useState<Beneficiary | null>(null);
 
@@ -28,8 +32,12 @@ function BeneficiaryList ({
                             <div>
                                 Aparținător: {(b.guardian.nume === '' && b.guardian.prenume === '') ? 'Aparținător fără nume' : `${b.guardian.nume} ${b.guardian.prenume}`}
                             </div>
+
                         </div>
             
+                        <button onClick={() => onDeleteBeneficiary(b.id!)}>
+                            <DeleteIcon></DeleteIcon>
+                        </button>
                     </div>
                 ))
             }

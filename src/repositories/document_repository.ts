@@ -52,38 +52,77 @@ export const DocumentRepository = {
                 const { value: html } = await mammoth.convertToHtml({ arrayBuffer });
                 
                 let index = 0;
-                const PLACEHOLDER_OPTIONS = [
-                    "${data}",
-                    "${nume} ${prenume}",
-                    "${nume}",
-                    "${prenume}",
-                    "${data_nasterii}",
-                    "${cnp}",
-                    "${serie_ci}",
-                    "${numar_ci}",
-                    "${oras}",
-                    "${judet}",
-                    "${strada}",
-                    "${numar_adresa}",
-                    "${bloc}",
-                    "${scara}",
-                    "${etaj}",
-                    "${apartament}",
-                    "${data_eliberare_ci}",
-                    "${sectie}",
+                const MISCELLANEOUS_PLACEHOLDERS = [
+                    "${data}"
+                ];
+
+                const BENEFICIARY_PLACEHOLDERS = [
+                    "${nume_BEN} ${prenume_BEN}",
+                    "${nume_BEN}",
+                    "${prenume_BEN}",
+                    "${data_nasterii_BEN}",
+                    "${cnp_BEN}",
+                    "${serie_ci_BEN}",
+                    "${numar_ci_BEN}",
+                    "${oras_BEN}",
+                    "${judet_BEN}",
+                    "${strada_BEN}",
+                    "${numar_adresa_BEN}",
+                    "${bloc_BEN}",
+                    "${scara_BEN}",
+                    "${etaj_BEN}",
+                    "${apartament_BEN}",
+                    "${data_eliberare_ci_BEN}",
+                    "${sectie_BEN}",
+                ];
+
+                const GUARDIAN_PLACEHOLDERS = [
+                    "${nume_APA} ${prenume_APA}",
+                    "${nume_APA}",
+                    "${prenume_APA}",
+                    "${data_nasterii_APA}",
+                    "${cnp_APA}",
+                    "${serie_ci_APA}",
+                    "${numar_ci_APA}",
+                    "${oras_APA}",
+                    "${judet_APA}",
+                    "${strada_APA}",
+                    "${numar_adresa_APA}",
+                    "${bloc_APA}",
+                    "${scara_APA}",
+                    "${etaj_APA}",
+                    "${apartament_APA}",
+                    "${data_eliberare_ci_APA}",
+                    "${sectie_APA}",
                 ];
                 
                 const placeholderRegex = /(\${[^}]+}|(?:[.‥…]{3,}))/g;
 
                 const replaced = html.replace(placeholderRegex, (match) => {
-                    const options = PLACEHOLDER_OPTIONS.map((p) => {
+                    const miscellaneousOptions = MISCELLANEOUS_PLACEHOLDERS.map((p) => {
+                      const selected = p === match ? 'selected' : '';
+                      return `<option value="${p}" ${selected}>${p}</option>`;
+                    }).join("");
+                    const beneficiaryOptions = BENEFICIARY_PLACEHOLDERS.map((p) => {
+                      const selected = p === match ? 'selected' : '';
+                      return `<option value="${p}" ${selected}>${p}</option>`;
+                    }).join("");
+                    const guardianOptions = GUARDIAN_PLACEHOLDERS.map((p) => {
                       const selected = p === match ? 'selected' : '';
                       return `<option value="${p}" ${selected}>${p}</option>`;
                     }).join("");
                   
                     return `<select data-index="${index++}" class="placeholder-dropdown">
-                              <option value="">....................................</option>
-                              ${options}
+                              <option value="">.........................................</option>
+                              <optgroup label="Diverse">
+                                ${miscellaneousOptions}
+                              </optgroup>
+                              <optgroup label="Beneficiar">
+                                ${beneficiaryOptions}
+                              </optgroup>
+                              <optgroup label="Aparținător">
+                                ${guardianOptions}
+                              </optgroup>
                             </select>`;
                 });
 

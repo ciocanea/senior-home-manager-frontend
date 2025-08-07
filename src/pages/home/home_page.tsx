@@ -93,6 +93,14 @@ function HomePage () {
             setSnackbarOpen(true);
         }
     }
+
+    const handleDeleteBeneficiary = async (beneficiaryId: string) => {
+        const result = await BeneficiaryRepository.deleteBeneficiary(beneficiaryId);
+
+        if (result.success) {
+            setBeneficiaries(beneficiaries.filter(b => b.id != beneficiaryId));
+        }
+    }
     
     const handleDocumentChange = (newDocument: File | undefined) => {
         if (newDocument) {
@@ -117,6 +125,7 @@ function HomePage () {
                     <BeneficiaryList
                     beneficiaries={beneficiaries}
                     documents={documents}
+                    onDeleteBeneficiary={handleDeleteBeneficiary}
                     >
                     </BeneficiaryList>
 
