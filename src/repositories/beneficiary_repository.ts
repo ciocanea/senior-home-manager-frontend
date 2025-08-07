@@ -1,4 +1,4 @@
-import { add, getAll } from "../api/beneficiary_api";
+import { add, deleteBeneficiary, getAll } from "../api/beneficiary_api";
 import { Beneficiary } from "../classes/beneficiary";
 import type { Result } from "../utils/result";
 
@@ -23,5 +23,9 @@ export const BeneficiaryRepository = {
         else {
             return { success: false, error: result.error };
         }
+    },
+
+    async deleteBeneficiary (beneficairyId: string): Promise<Result<void>> {
+        return await deleteBeneficiary(beneficairyId);
     }
 }
