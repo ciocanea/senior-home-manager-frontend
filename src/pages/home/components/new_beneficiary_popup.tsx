@@ -4,6 +4,8 @@ import { Beneficiary } from "../../../classes/beneficiary";
 import { BeneficiaryRepository } from "../../../repositories/beneficiary_repository";
 import { Guardian } from "../../../classes/guardian";
 import newBeneficiaryReducer from "../../../reducers/new_beneficiary_reducer";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const initialState = {
     beneficiary: {
@@ -108,29 +110,47 @@ function NewBeneficiaryPopup ({
 
     return (
         <>
-            <div className={styles.overlay}>
+            <div 
+            className={styles.overlay}
+            onClick={(e) => {
+                if (e.target === e.currentTarget) onClose();
+            }}
+            >
                 <div className={styles.popup}>
-                    <h2>Detalii Beneficiar Nou</h2>
+                    <div className={styles.header}>
+                        <div className={styles.left}></div>
+                        <div className={styles.center}>
+                            <h2>Detalii Beneficiar Nou</h2>
+                        </div>
+                        <div className={styles.right}>
+                            <button onClick={onClose}>
+                                <CloseIcon fontSize="large"></CloseIcon>
+                            </button>
+                        </div>
+                    </div>
+
                     <form onSubmit={handleSubmit}>
                         <div className={styles.info}>
                             <div className={styles.form_section}>
                                 <h3>Beneficiar</h3>
                                 <div>
-                                    <label>Nume</label>
+                                    <label>Nume*</label>
                                     <input 
                                     type="text"
                                     value={state.beneficiary.nume}
                                     onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'nume', value: e.target.value })}} 
                                     placeholder="e.g. Popescu"
+                                    required
                                     />
                                 </div>
                                 <div>
-                                    <label>Prenume</label>
+                                    <label>Prenume*</label>
                                     <input
                                     type="text"
                                     value={state.beneficiary.prenume}
                                     onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'prenume', value: e.target.value })}}
                                     placeholder="e.g. Maria"
+                                    required
                                     />
                                 </div>
                                 <div>
@@ -165,6 +185,14 @@ function NewBeneficiaryPopup ({
                                     minLength={6}
                                     maxLength={6}
                                     placeholder="e.g. 939120"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Data Nașterii</label>
+                                    <input 
+                                    type="date"
+                                    value={state.beneficiary.dataNasterii}
+                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'dataNasterii', value: e.target.value })}}
                                     />
                                 </div>
                                 <div>
@@ -220,14 +248,7 @@ function NewBeneficiaryPopup ({
                                     placeholder="e.g. 39"
                                     />
                                 </div>
-                                <div>
-                                    <label>Data Nașterii</label>
-                                    <input 
-                                    type="date"
-                                    value={state.beneficiary.dataNasterii}
-                                    onChange={(e) => {dispatch({ type: 'SET_BENEFICIARY_FIELD', field: 'dataNasterii', value: e.target.value })}}
-                                    />
-                                </div>
+                                <div></div>
                                 <div>
                                     <label>Bloc</label>
                                     <input 
@@ -268,7 +289,7 @@ function NewBeneficiaryPopup ({
                             </div>
 
                             <div className={styles.form_section}>
-                                <h3>Beneficiar</h3>
+                                <h3>Aparținător</h3>
                                 <div>
                                     <label>Nume</label>
                                     <input 
@@ -319,6 +340,14 @@ function NewBeneficiaryPopup ({
                                     minLength={6}
                                     maxLength={6}
                                     placeholder="e.g. 939120"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Data Nașterii</label>
+                                    <input 
+                                    type="date"
+                                    value={state.guardian.dataNasterii}
+                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'dataNasterii', value: e.target.value })}}
                                     />
                                 </div>
                                 <div>
@@ -374,14 +403,7 @@ function NewBeneficiaryPopup ({
                                     placeholder="e.g. 39"
                                     />
                                 </div>
-                                <div>
-                                    <label>Data Nașterii</label>
-                                    <input 
-                                    type="date"
-                                    value={state.guardian.dataNasterii}
-                                    onChange={(e) => {dispatch({ type: 'SET_GUARDIAN_FIELD', field: 'dataNasterii', value: e.target.value })}}
-                                    />
-                                </div>
+                                <div></div>
                                 <div>
                                     <label>Bloc</label>
                                     <input 
@@ -422,7 +444,6 @@ function NewBeneficiaryPopup ({
                             </div>
                         </div>    
                         <div className={styles.buttons}>
-                            <button type="button" onClick={onClose}>Înapoi</button>
                             <button type="submit">Adaugă</button>
                         </div>
                     </form>

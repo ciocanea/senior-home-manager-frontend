@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "../components_css/document_popup.module.css";
 import { DocumentRepository } from "../../../repositories/document_repository";
+import { Snackbar } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 
 function DocumentPopup ({
@@ -11,6 +14,9 @@ function DocumentPopup ({
     onClose: () => void,
 }) {
     const [documentHtml, setDocumentHtml] = useState('');
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
 
     useEffect(() => {
         DocumentRepository.get(documentName).then((result) => {
@@ -27,27 +33,59 @@ function DocumentPopup ({
             return select.value ? select.value : "";
         });
     
-        
-        console.log("Placeholder mapping to send:", placeholders);
-    
         const result = await DocumentRepository.edit(documentName, placeholders)
+
+        if (result.success) {
+            onClose();
+
+            setSnackbarMessage('Modificări salvate.');
+            setSnackbarOpen(true);
+        }
+        else {
+            setSnackbarMessage('Modificările nu au putut fi salvate.');
+            setSnackbarOpen(true);
+        }
     };
     
-    
-
     return (
         <>
-            <div className={styles.overlay}>
+            <div 
+            className={styles.overlay} 
+            onClick={(e) => {
+                if (e.target === e.currentTarget) onClose();
+            }}
+            >
                 <div className={styles.popup}>
+                    <div className={styles.header}>
+                        <div className={styles.left}></div>
+                        <div className={styles.center}>
+                            <h2>{documentName}</h2>
+                        </div>
+                        <div className={styles.right}>
+                            <button onClick={onClose}>
+                                <CloseIcon fontSize="large"></CloseIcon>
+                            </button>
+                        </div>
+                    </div>
+
                     <div className={styles.document}
                         dangerouslySetInnerHTML={{ __html: documentHtml }}
                     />
 
-                    <button type="button" onClick={onClose}></button>
-                    <button type="button" onClick={handleSave}>
-                        Save Template
-                    </button>   
+                    <div className={styles.buttons}>
+                        <button type="button" onClick={handleSave}>Salvați</button>   
+                    </div>
+
+                        
                 </div>
+                <Snackbar
+                open={snackbarOpen}
+                onClose={() => {setSnackbarOpen(false)}}
+                message={snackbarMessage}
+                autoHideDuration={5000}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                >
+                </Snackbar>
             </div>
         </>
     );

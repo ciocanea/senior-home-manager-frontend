@@ -25,6 +25,31 @@
     overflow-y: auto;
 }
 
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+.right button{
+    background: none;
+    border: none;
+    min-width: fit-content;
+    width: fit-content;
+}
+.right button:hover, .right button:focus {
+    color: red;
+}   
+
 .info {
     display: flex;
     flex-direction: row;
@@ -41,21 +66,6 @@
     align-items: center;
 
     width: 90%;
-}
-
-.buttons {
-    display: flex;
-    flex-direction: row;
-
-    justify-content: space-evenly;
-
-    padding: 10px;
-    margin: 10px;
-
-    width: 90%;
-
-    border-radius: 5px;
-    background-color: var(--primary-color);
 }
 
 .info_item {
@@ -119,60 +129,3 @@
     min-width: fit-content;
     width: fit-content;
 }
-
-/* 
-.info_section {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5em 1em;
-    width: 100%;
-    box-sizing: border-box;
-
-    padding: 10px;
-    margin: 10px;
-
-    border-radius: 5px;
-    background-color: var(--primary-color);
-} */
-
-/* .info_section > h3:nth-child(1) {
-    grid-column: span 4;
-} */
-
-/* Nume, Prenume */
-/* .info_section > *:nth-child(2) {
-    grid-column: span 2;
-}
-.info_section > *:nth-child(3) {
-    grid-column: span 2;
-} */
-
-/* CNP, Serie, Număr */
-/* .info_section > *:nth-child(4) {
-    grid-column: span 2;
-}
-.info_section > *:nth-child(5),
-.info_section > *:nth-child(6) {
-    grid-column: span 1;
-} */
-
-/* Dată Eliberare, Secție */
-/* .info_section > *:nth-child(7),
-.info_section > *:nth-child(8) {
-  grid-column: span 2;
-} */
-
-/* Oraș, Județ */
-/* .info_section > *:nth-child(9),
-.info_section > *:nth-child(10) {
-  grid-column: span 2;
-} */
-
-/* Stradă, Număr */
-/* .info_section > *:nth-child(11) {
-  grid-column: span 2;
-}
-.info_section > *:nth-child(12) {
-  grid-column: span 1;
-} */
-
