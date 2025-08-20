@@ -36,6 +36,12 @@ input[type="file"] {
     min-width: fit-content;
     width: fit-content;
 }
+.document_upload form button:disabled {
+    border: none;
+    background: none;
+
+    cursor: default;
+}
 
 .document_input {
     white-space: normal;

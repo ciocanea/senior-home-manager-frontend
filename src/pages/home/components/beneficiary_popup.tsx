@@ -3,6 +3,7 @@ import type { Beneficiary } from "../../../classes/beneficiary";
 import { DocumentRepository } from "../../../repositories/document_repository";
 import DownloadIcon from '@mui/icons-material/Download';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 function BeneficiaryPopup ({
@@ -28,9 +29,25 @@ function BeneficiaryPopup ({
 
     return (
         <>
-            <div className={styles.overlay} >
+            <div
+            className={styles.overlay}
+            onClick={(e) => {
+                if (e.target === e.currentTarget) onClose();
+            }}
+            >
                 <div className={styles.popup}>
-                    <h2>Detalii Beneficiar</h2>
+                    <div className={styles.header}>
+                        <div className={styles.left}></div>
+                        <div className={styles.center}>
+                            <h2>Detalii Beneficiar</h2>
+                        </div>
+                        <div className={styles.right}>
+                            <button onClick={onClose}>
+                                <CloseIcon fontSize="large"></CloseIcon>
+                            </button>
+                        </div>
+                    </div>
+
                     <div className={styles.info}>
                         <div className={styles.info_item}>
                             <h3>Beneficiar</h3>
@@ -252,10 +269,6 @@ function BeneficiaryPopup ({
                                 </div>
                             ))
                         }
-                    </div>
-                    
-                    <div className={styles.buttons}>
-                        <button type="button" onClick={onClose}>Înapoi</button>
                     </div>
                 </div>
             </div>

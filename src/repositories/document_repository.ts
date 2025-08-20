@@ -53,64 +53,66 @@ export const DocumentRepository = {
                 
                 let index = 0;
                 const MISCELLANEOUS_PLACEHOLDERS = [
-                    "${data}"
+                    { value: "${data}", label: "Data" },
                 ];
+
 
                 const BENEFICIARY_PLACEHOLDERS = [
-                    "${nume_BEN} ${prenume_BEN}",
-                    "${nume_BEN}",
-                    "${prenume_BEN}",
-                    "${data_nasterii_BEN}",
-                    "${cnp_BEN}",
-                    "${serie_ci_BEN}",
-                    "${numar_ci_BEN}",
-                    "${oras_BEN}",
-                    "${judet_BEN}",
-                    "${strada_BEN}",
-                    "${numar_adresa_BEN}",
-                    "${bloc_BEN}",
-                    "${scara_BEN}",
-                    "${etaj_BEN}",
-                    "${apartament_BEN}",
-                    "${data_eliberare_ci_BEN}",
-                    "${sectie_BEN}",
-                ];
+                    { value: "${nume_BEN} ${prenume_BEN}", label: "Nume complet (BEN)" },
+                    { value: "${nume_BEN}", label: "Nume (BEN)" },
+                    { value: "${prenume_BEN}", label: "Prenume (BEN)" },
+                    { value: "${data_nasterii_BEN}", label: "Data nașterii (BEN)" },
+                    { value: "${cnp_BEN}", label: "CNP (BEN)" },
+                    { value: "${serie_ci_BEN}", label: "Serie CI (BEN)" },
+                    { value: "${numar_ci_BEN}", label: "Număr CI (BEN)" },
+                    { value: "${data_eliberare_ci_BEN}", label: "Data eliberării CI (BEN)" },
+                    { value: "${sectie_BEN}", label: "Secție CI (BEN)" },
+                    { value: "${adresa_BEN}", label: "Adresă completă (BEN)" },
+                    { value: "${oras_BEN}", label: "Oraș (BEN)" },
+                    { value: "${judet_BEN}", label: "Județ/Sector (BEN)" },
+                    { value: "${strada_BEN}", label: "Stradă (BEN)" },
+                    { value: "${numar_adresa_BEN}", label: "Număr (BEN)" },
+                    { value: "${bloc_BEN}", label: "Bloc (BEN)" },
+                    { value: "${scara_BEN}", label: "Scară (BEN)" },
+                    { value: "${etaj_BEN}", label: "Etaj (BEN)" },
+                    { value: "${apartament_BEN}", label: "Apartament (BEN)" },
+                  ];
+                  
+                  const GUARDIAN_PLACEHOLDERS = [
+                    { value: "${nume_APA} ${prenume_APA}", label: "Nume complet (APA)" },
+                    { value: "${nume_APA}", label: "Nume (APA)" },
+                    { value: "${prenume_APA}", label: "Prenume (APA)" },
+                    { value: "${data_nasterii_APA}", label: "Data nașterii (APA)" },
+                    { value: "${cnp_APA}", label: "CNP (APA)" },
+                    { value: "${serie_ci_APA}", label: "Serie CI (APA)" },
+                    { value: "${numar_ci_APA}", label: "Număr CI (APA)" },
+                    { value: "${data_eliberare_ci_APA}", label: "Data eliberării CI (APA)" },
+                    { value: "${sectie_APA}", label: "Secție CI (APA)" },
+                    { value: "${adresa_APA}", label: "Adresă completă (APA)" },
+                    { value: "${oras_APA}", label: "Oraș (APA)" },
+                    { value: "${judet_APA}", label: "Județ/Sector (APA)" },
+                    { value: "${strada_APA}", label: "Stradă (APA)" },
+                    { value: "${numar_adresa_APA}", label: "Număr (APA)" },
+                    { value: "${bloc_APA}", label: "Bloc (APA)" },
+                    { value: "${scara_APA}", label: "Scară (APA)" },
+                    { value: "${etaj_APA}", label: "Etaj (APA)" },
+                    { value: "${apartament_APA}", label: "Apartament (APA)" },
+                  ];
 
-                const GUARDIAN_PLACEHOLDERS = [
-                    "${nume_APA} ${prenume_APA}",
-                    "${nume_APA}",
-                    "${prenume_APA}",
-                    "${data_nasterii_APA}",
-                    "${cnp_APA}",
-                    "${serie_ci_APA}",
-                    "${numar_ci_APA}",
-                    "${oras_APA}",
-                    "${judet_APA}",
-                    "${strada_APA}",
-                    "${numar_adresa_APA}",
-                    "${bloc_APA}",
-                    "${scara_APA}",
-                    "${etaj_APA}",
-                    "${apartament_APA}",
-                    "${data_eliberare_ci_APA}",
-                    "${sectie_APA}",
-                ];
-                
-                const placeholderRegex = /(\${[^}]+}|(?:[.‥…]{3,}))/g;
+                const placeholderRegex = /(\${[^}]+}|\.{4,}|(\.|‥|…){3,}|(‥|…){2,})/g;
 
                 const replaced = html.replace(placeholderRegex, (match) => {
-                    const miscellaneousOptions = MISCELLANEOUS_PLACEHOLDERS.map((p) => {
-                      const selected = p === match ? 'selected' : '';
-                      return `<option value="${p}" ${selected}>${p}</option>`;
-                    }).join("");
-                    const beneficiaryOptions = BENEFICIARY_PLACEHOLDERS.map((p) => {
-                      const selected = p === match ? 'selected' : '';
-                      return `<option value="${p}" ${selected}>${p}</option>`;
-                    }).join("");
-                    const guardianOptions = GUARDIAN_PLACEHOLDERS.map((p) => {
-                      const selected = p === match ? 'selected' : '';
-                      return `<option value="${p}" ${selected}>${p}</option>`;
-                    }).join("");
+                    const buildOptions = (arr: { value: string; label: string }[]) =>
+                      arr
+                        .map((p) => {
+                          const selected = p.value === match ? "selected" : "";
+                          return `<option value="${p.value}" ${selected}>${p.label}</option>`;
+                        })
+                        .join("");
+                  
+                    const miscellaneousOptions = buildOptions(MISCELLANEOUS_PLACEHOLDERS);
+                    const beneficiaryOptions = buildOptions(BENEFICIARY_PLACEHOLDERS);
+                    const guardianOptions = buildOptions(GUARDIAN_PLACEHOLDERS);
                   
                     return `<select data-index="${index++}" class="placeholder-dropdown">
                               <option value="">.........................................</option>

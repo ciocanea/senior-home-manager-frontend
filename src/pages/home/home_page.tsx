@@ -99,6 +99,13 @@ function HomePage () {
 
         if (result.success) {
             setBeneficiaries(beneficiaries.filter(b => b.id != beneficiaryId));
+
+            setSnackbarMessage('Beneficiar șters.');
+            setSnackbarOpen(true);
+        }
+        else {
+            setSnackbarMessage('Beneficiarul nu a putut fi șters.');
+            setSnackbarOpen(false);
         }
     }
     
