@@ -21,24 +21,53 @@ function BeneficiaryList ({
         <>
             {
                 beneficiaries.map(b => (
-                    <div key={b.id}>
-                        <div
-                         className={styles.item}
-                         onClick={() => setSelectedBeneficiary(b)}
-                        >
-                            <div>
-                                Beneficiar: {(b.nume === '' && b.prenume === '') ? 'Beneficiar fără nume' : `${b.nume} ${b.prenume}`}
-                            </div>
-                            <div>
-                                Aparținător: {(b.guardian.nume === '' && b.guardian.prenume === '') ? 'Aparținător fără nume' : `${b.guardian.nume} ${b.guardian.prenume}`}
-                            </div>
+                    // <div key={b.id}>
+                    //     <div
+                    //      className={styles.item}
+                    //      onClick={() => setSelectedBeneficiary(b)}
+                    //     >
+                    //         <div>
+                    //             Beneficiar: {(b.nume === '' && b.prenume === '') ? 'Beneficiar fără nume' : `${b.nume} ${b.prenume}`}
+                    //         </div>
+                    //         <div>
+                    //             Aparținător: {(b.guardian.nume === '' && b.guardian.prenume === '') ? 'Aparținător fără nume' : `${b.guardian.nume} ${b.guardian.prenume}`}
+                    //         </div>
 
-                        </div>
+                    //     </div>
             
-                        <button onClick={() => onDeleteBeneficiary(b.id!)}>
-                            <DeleteIcon></DeleteIcon>
+                    //     <button onClick={() => onDeleteBeneficiary(b.id!)}>
+                    //         <DeleteIcon></DeleteIcon>
+                    //     </button>
+                    // </div>
+
+                    <div
+                    key={b.id}
+                    className={styles.item}
+                    onClick={() => setSelectedBeneficiary(b)}
+                    >
+                        <div className={styles.names}>
+                            <div>
+                                Beneficiar: {(b.nume === '' && b.prenume === '')
+                                ? 'Beneficiar fără nume'
+                                : `${b.nume} ${b.prenume}`}
+                            </div>
+                            <div>
+                                Aparținător: {(b.guardian.nume === '' && b.guardian.prenume === '')
+                                ? 'Aparținător fără nume'
+                                : `${b.guardian.nume} ${b.guardian.prenume}`}
+                            </div>
+                        </div>
+
+                        <button
+                        onClick={(e) => {
+                            e.stopPropagation(); // prevent triggering item onClick
+                            onDeleteBeneficiary(b.id!);
+                        }}
+                        >
+                            <DeleteIcon />
                         </button>
                     </div>
+
                 ))
             }
 
