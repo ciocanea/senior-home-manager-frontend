@@ -20,7 +20,7 @@ function DocumentList ({
                 documents.map((documentName, index) => (
                     <div key={index}>
                         <div className={styles.item}>
-                            <div>
+                            <div className={styles.name}>
                                 { documentName }
                             </div>
                             <button onClick={() => setSelectedDocument(documentName)}>

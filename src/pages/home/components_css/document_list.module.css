@@ -16,10 +16,13 @@
     justify-content: space-between;
 }
 
-.item div {
+.name {
     white-space: normal;
     word-break: break-word;
     width: 70%;
+
+    font-weight: 500;
+    text-align: left;
 }
 
 .item button {
