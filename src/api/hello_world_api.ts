@@ -7,7 +7,7 @@ import { getApiErrorMessage } from '../utils/errorHandler';
 
 const helloWorldClient = axios.create({
   // baseURL: 'http://localhost:8080/hello-world',
-  baseURL: 'https://shm-aca.purplesand-daccc954.westeurope.azurecontainerapps.io',
+  baseURL: 'https://shm-aca.purplesand-daccc954.westeurope.azurecontainerapps.io/hello-world',
   headers: {
     'Content-Type': 'application/json',
   },
