@@ -6,7 +6,8 @@ import type { DocumentRequestDTO } from "../utils/dtos/documentRequestDTO";
 import { getApiErrorMessage } from "../utils/errorHandler";
 
 const documentClient = axios.create({
-    baseURL: 'http://localhost:8080/documents',
+    // baseURL: 'http://localhost:8080/documents',
+    baseURL: 'https://shm-aca.purplesand-daccc954.westeurope.azurecontainerapps.io/documents',
     headers: {
         'Content-Type': 'application/json'
     }
