@@ -7,7 +7,8 @@ import type { Beneficiary } from "../classes/beneficiary";
 import { getApiErrorMessage } from "../utils/errorHandler";
 
 const beneficiaryClient = axios.create({
-    baseURL: 'http://localhost:8080/beneficiaries',
+    // baseURL: 'http://localhost:8080/beneficiaries',
+    baseURL: 'https://shm-aca.purplesand-daccc954.westeurope.azurecontainerapps.io/beneficiaries',
     headers: {
         'Content-Type': 'application/json'
     }

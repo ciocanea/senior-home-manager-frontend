@@ -63,7 +63,7 @@ function HelloWorldPage() {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type your message"
+          placeholder="Type your message..."
           style={{ marginRight: '1rem' }}
         />
         <button onClick={handleSubmit}>Send</button>

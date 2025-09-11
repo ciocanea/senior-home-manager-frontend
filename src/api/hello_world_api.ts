@@ -6,7 +6,8 @@ import type { HelloWorldResponse } from '../utils/responses/hello_world_response
 import { getApiErrorMessage } from '../utils/errorHandler';
 
 const helloWorldClient = axios.create({
-  baseURL: 'http://localhost:8080/hello-world',
+  // baseURL: 'http://localhost:8080/hello-world',
+  baseURL: 'https://shm-aca.purplesand-daccc954.westeurope.azurecontainerapps.io/hello-world',
   headers: {
     'Content-Type': 'application/json',
   },
